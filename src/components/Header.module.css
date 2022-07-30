@@ -1,0 +1,51 @@
+*,*::before,*::after{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Sen',sans-serif;
+}    
+body{
+    background-color:#f5f5f5
+}
+.navbar{
+    width:min(1050px,100%);
+    background-color: #e6e6fa;
+    margin-left:auto;
+    height:7vh;
+    display: flex;
+}
+.profile_container{
+    display:flex;
+    align-items: center;
+    height: 100%;
+    width:50%;
+    flex-grow: 1;
+}
+.icon{
+    font-size: 1.9rem;
+}
+.profile_pic{
+    color:#a5dafa;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    /* padding:0.5rem; */
+    margin-left:1rem;    margin-right:0.5rem;
+}
+.profile_text_container{
+    margin-bottom:0.5rem;
+}   
+.disconnect{
+    border:none;
+    outline:none;
+    display:flex;
+    width:5%;
+    background-color: transparent;
+    align-items: center;
+    justify-content: space-evenly;
+}
+.disconnect:hover{
+    cursor: pointer;
+    background-color: rgba(204, 204, 204, 0.905);
+
+}

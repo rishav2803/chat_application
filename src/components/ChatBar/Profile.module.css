@@ -1,0 +1,15 @@
+.container{
+    position: absolute;
+    width:276px;
+    top:0;
+    height:7vh;
+    background-color:#e6e6fa ;
+    border-right:1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.text{
+    font-weight: bold;
+    margin-left:1rem;
+}

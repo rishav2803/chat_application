@@ -1,0 +1,31 @@
+:root{
+    --width:fit-content
+}
+.chat{
+    list-style: none;
+    padding:.4rem;
+    width:var(--width);
+    height:fit-content;
+    border-radius: 5px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column-reverse;
+    margin:1rem;
+}
+.meta{
+    display:inline;
+    color:#44adee;
+    float:right;
+    margin-right:0.4rem;
+    font-size:.9rem;
+}
+.chat span{
+    font-size:.9rem;
+    float:right;
+    margin-top:.3rem;
+    color:rgb(176, 166, 166)
+}
+.text{
+    /* font-weight: bold; */
+    font-weight: 540;
+}
