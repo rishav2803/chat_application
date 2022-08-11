@@ -4,10 +4,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import { socket } from '../../service/socket'
 import { faUser } from '@fortawesome/free-solid-svg-icons'
 import { toast, ToastContainer } from "react-toastify";
+import { createUser } from "../../service/UserService";
+import { Link, useNavigate } from "react-router-dom";
 import 'react-toastify/dist/ReactToastify.css'
 
 
 const SignUp = () => {
+    const navigate = useNavigate();
     const [values, setValues] = useState({
         userName: '',
         email: '',
@@ -26,34 +29,43 @@ const SignUp = () => {
         setValues({ ...values, [event.target.name]: event.target.value })
 
     }
-    const formSubmitHandler = (event) => {
+    const formSubmitHandler = async (event) => {
         event.preventDefault();
-        handleValidation()
-        // setValues({
-        // userName:'',
-        // email:'',
-        // password:'',
-        // })
+        if (handleValidation()) {
+            const { userName, email, password } = values;
+            const data = await createUser({ userName, email, password });
+            if (data.status === false) {
+                toast.error(data.mssg, toastOptns)
+            }
+            if (data.status === true) {
+                navigate('/user/login?registered=true');
+            }
+        }
     }
 
     const handleValidation = () => {
         const { userName, email, password } = values;
-        console.log("Inside validation")
         if (userName == '') {
             toast.error("Name should be present", toastOptns);
+            return false;
         }
-        if(userName.length < 3){
-            toast.error("Name should of more than 3 characters",toastOptns);
+        if (userName.length < 3) {
+            toast.error("Name should of more than 3 characters", toastOptns);
+            return false;
         }
-        if(email ===''){
-            toast.error("Email should be present",toastOptns);
+        if (email === '') {
+            toast.error("Email should be present", toastOptns);
+            return false;
         }
-        if(password ===''){
-            toast.error("Password should be present",toastOptns);
+        if (password === '') {
+            toast.error("Password should be present", toastOptns);
+            return false;
         }
-        if(password.length < 8){
-            toast.error("Password should of more than 3 characters",toastOptns);
+        if (password.length < 6) {
+            toast.error("Password should be greater than 6 characters", toastOptns);
+            return false;
         }
+        return true;
     }
 
     return (
@@ -64,7 +76,7 @@ const SignUp = () => {
                 </div>
                 <form onSubmit={formSubmitHandler}>
                     <div className={styles.form_group}>
-                        <label>Name</label>
+                        <label>Username</label>
                         <input type='text' placeholder={"Enter your name here"} className={styles.input} name='userName' onChange={(e) => handleChange(e)} value={values.userName}></input>
                     </div>
                     <div className={styles.form_group}>
@@ -73,7 +85,7 @@ const SignUp = () => {
                     </div>
                     <div className={styles.form_group}>
                         <label>Password</label>
-                        <input type='password' placeholder={"Enter your Password here"} className={styles.input} name='password' onChange={(e) => handleChange(e)} value={values.password}></input>
+                        <input type='password' className={styles.input} name='password' onChange={(e) => handleChange(e)} value={values.password} placeholder={"Enter your Password here"}></input>
                     </div>
                     {/* <div className={styles.form_group}>
                 <label>Confirm Password</label>
@@ -81,10 +93,10 @@ const SignUp = () => {
             </div> */}
                     <button className={styles.btn} >Submit</button>
                     <div className={styles.meta}>
-                        <p>Already have an account?<a href="/">LogIn Here</a>.</p>
+                        <p>Already have an account?<Link to="/user/login">LogIn Here</Link>.</p>
                     </div>
                 </form>
-            </div>
+            </div >
             <ToastContainer ></ToastContainer>
         </>
     )

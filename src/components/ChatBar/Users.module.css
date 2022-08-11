@@ -10,11 +10,6 @@
     overflow:scroll;
     overflow-x:hidden;
 }
-.containerAlt{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}
 .container::-webkit-scrollbar{
     width:4px;
 }
@@ -24,66 +19,13 @@
 .container::-webkit-scrollbar-thumb{
     background-color:#a5dafa;
 }
-.icon{
-    font-size:2rem;
-    margin-right:.5rem;
-    color:#a5dafa
-}
-.users{
-    list-style: none;
-    display: block;
-}
-.user{
-    display: flex;
-    align-items: center;
-    position: relative;
+.recentContacts{
+    font-weight: 600;
+    border-left:4px solid #a5dafa;
+    border-bottom: 1px solid #ccc;
     padding:1rem;
 }
-.user:hover{
-    cursor: pointer;
-    background-color: #f8f8f8d8;
-}
-.user::after{
-    content: '';
-    position: absolute;
-    width:90%;
-    height:1.5px;
-    background-color:#ccc;
-    bottom:0;
-    left:0;
-    transition:all 300ms ease-in-out;
-}
-.content{
-    display:flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-.user:hover::after{
-    width:100%;
-}
-.user p{
-    margin-bottom:.2rem;
-}
-.meta{
-    font-size:.87rem;
-}
-.c{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}
-.symbol{ 
-    width:10px;
-    aspect-ratio: 1;
-    background-color: green;
-    border-radius:50%;
-    margin-left:.5rem;
-    margin-bottom:.2rem;
-}
-.red{
-    background-color: red;
-}
-.Indicator{
+/* .Indicator{
     position:absolute;
     background-color: #a5dafa;
     display: flex;
@@ -96,4 +38,4 @@
     right:10%;
 }
 .no_contact{
-}
+} */

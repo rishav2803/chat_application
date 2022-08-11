@@ -1,8 +1,8 @@
 .container{
-    width:max(29%,400px);
+    width:min(400px,95%);
+    height:60vh;
     margin-inline:auto;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-    height:60vh;
     transform: translateY(25%);
     display: flex;
     flex-direction: column;
@@ -36,6 +36,7 @@
 }
 .container .input{
     width:80%;
+    /* display block is required for padding or marign to work */
     display: block;
     margin-inline:auto;
     margin-bottom:1rem;
@@ -82,6 +83,7 @@
 }
 .container .input:focus{
     border-bottom:2px solid #57b7f3;
+    background-color:#d4edfca9;
 }
 .container .btn:hover{
     transform: translateY(-5px);

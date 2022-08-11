@@ -1,9 +1,10 @@
 import styles from './Comment.module.css'
 import { useState, useRef, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClose, faPaperPlane, faSmile, faSmileBeam } from '@fortawesome/free-solid-svg-icons'
+import { faClose, faPaperPlane, faSmile } from '@fortawesome/free-solid-svg-icons'
 import { socket } from '../service/socket'
 import Picker from 'emoji-picker-react'
+import { postMessage } from '../service/MessageServices'
 export function Comment(props) {
     const [message, setMessage] = useState('')
     const [messageReceived, setMessageReceived] = useState({})
@@ -34,13 +35,15 @@ export function Comment(props) {
     }, [socket, messageReceived])
 
 
-    const commentHandler = (event) => {
+
+    const commentHandler = async (event) => {
         socket.emit('send-message', { message: message, sender: props.userName, receiver: props.receiverName })
         props.onReceviedMessage({
             message: message,
             sName: props.userName,
             rName: props.receiverName
         })
+        postMessage({ message: message, sender: props.userName, receiver: props.receiverName });
         setMessage("");
         commentRef.current.focus();
     }
@@ -68,7 +71,7 @@ export function Comment(props) {
                     {showPicker && <FontAwesomeIcon icon={faClose} className={styles.close}></FontAwesomeIcon>}
                 </button>
                 {showPicker && <div className={styles.emojiContainer}>
-                    <Picker pickerStyle={{width:'100%',height:'100',borderRadius:'0',boxShadow:'0'}} onEmojiClick={onEmojiClick}></Picker>
+                    <Picker pickerStyle={{ width: '100%', height: '100', borderRadius: '0', boxShadow: '0' }} onEmojiClick={onEmojiClick}></Picker>
                 </div>}
             </div>
         </>
