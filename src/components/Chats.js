@@ -1,11 +1,11 @@
 import styles from './Chats.module.css'
 
-const Chat = (props) => {
+const Chat = ({ chat, time, className }) => {
 
     return <div className={`${styles.container}`}>
-        <div className={` ${styles.chat} ${props.className}`}>
-            <span >9:12pm</span>
-            <p className={styles.text}>{props.chat}</p>
+        <div className={` ${styles.chat} ${className}`}>
+            <span >{time}</span>
+            <p className={styles.text}>{chat}</p>
             <div className={styles.triangle}></div>
         </div>
     </div>

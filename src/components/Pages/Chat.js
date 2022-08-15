@@ -5,6 +5,8 @@ import Profile from "../ChatBar/Profile";
 import Users, { RecentlyContacted } from "../ChatBar/Users";
 import ChatBody from "../ChatBody";
 import Welcome from "../Welcome";
+import ContactsContext from "../../context/contacts-context";
+import { useState } from "react";
 
 const Chats = ({
     userName,
@@ -18,6 +20,13 @@ const Chats = ({
     loginHandler,
     userHandler
 }) => {
+    const [isRecentContact, setIsRecentContact] = useState(false);
+    const recentContactHandler = () => {
+        setIsRecentContact(true);
+    }
+    const activeContactHandler = () => {
+        setIsRecentContact(false);
+    }
     return (
         <Card>
             {isVisible &&
@@ -28,13 +37,21 @@ const Chats = ({
                 </>
             }
             {!isVisible && <Welcome userName={userName}></Welcome>}
-            <Profile userName={userName}></Profile>
-            <Users onClick={chatshowHandler}
-                onUser={userHandler}
-                userName={userName}
-                onHistoryMessage={historyMessageHandler}
-                onReceivedMessage={receviedMessageHandler}
-            />
+            <ContactsContext.Provider value={
+                {
+                    isVisible: isRecentContact,
+                    onRecentContact: recentContactHandler,
+                    onActiveContact: activeContactHandler
+                }
+            }>
+                <Profile userName={userName} onDisconnect={loginHandler}></Profile>
+                <Users onClick={chatshowHandler}
+                    onUser={userHandler}
+                    userName={userName}
+                    onHistoryMessage={historyMessageHandler}
+                    onReceivedMessage={receviedMessageHandler}
+                />
+            </ContactsContext.Provider>
         </Card>
     )
 }

@@ -25,6 +25,15 @@
     border-bottom: 1px solid #ccc;
     padding:1rem;
 }
+.recentContacts p{
+    display:inline;
+}
+.caret{
+    display: inline;
+    margin-left:5.4rem;
+    cursor: pointer;
+}
+
 /* .Indicator{
     position:absolute;
     background-color: #a5dafa;

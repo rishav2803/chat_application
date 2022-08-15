@@ -6,6 +6,13 @@
     margin-top:.5rem;
     position: relative;
 }
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:100%;
+    position: relative;
+}
 .dot{
     width:5px;
     aspect-ratio:1;

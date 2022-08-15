@@ -9,16 +9,17 @@ const ChatBody = (props) => {
         // This list will show the message of sender and the receiver of the message
         const tempList = list.filter(l => l.sName === props.userName && l.rName === props.senderName || l.sName === props.senderName && l.rName === props.userName)
         for (let i = 0; i < tempList.length; i++) {
-            const item = tempList[i].message
-            const name = tempList[i].sName
+            const item = tempList[i].message;
+            const name = tempList[i].sName;
+            const time = tempList[i].time;
             if (name !== undefined) {
                 if (name == props.userName) {
-                    chat.push(<Chats chat={`${item}`} className={styles.chat1}></Chats>)
+                    chat.push(<Chats chat={item} time={time} className={styles.chat1}></Chats>)
                 }
                 else {
                     // This is so that chat of other than current receier chat is not showing
                     if (name === props.senderName) {
-                        chat.push(<Chats chat={`${item}`}></Chats>)
+                        chat.push(<Chats chat={item} time={time}></Chats>)
                     }
                 }
             }
@@ -28,18 +29,20 @@ const ChatBody = (props) => {
 
     const getHistoryChat = (list) => {
         let historyChat = [];
-
+        console.log(list);
         for (let i = 0; i < list.length; i++) {
             const item = list[i].message_text;
             const name = list[i].sender;
+            const time = list[i].created_at;
+            const id = list[i].message_id;
             if (name !== undefined) {
                 if (name == props.userName) {
-                    historyChat.push(<Chats chat={`${item}`} className={styles.chat1}></Chats>)
+                    historyChat.push(<Chats key={id} chat={item} time={time} className={styles.chat1}></Chats>)
                 }
                 else {
                     // This is so that chat of other than current receier chat is not showing
                     if (name === props.senderName) {
-                        historyChat.push(<Chats chat={`${item}`}></Chats>)
+                        historyChat.push(<Chats chat={item} time={time}></Chats>)
                     }
                 }
             }

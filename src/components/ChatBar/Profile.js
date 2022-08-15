@@ -1,13 +1,13 @@
 import styles from './Profile.module.css'
-import { Dots,ContextMenu} from '../UI/Dots'
+import { Dots, ContextMenu } from '../UI/Dots'
 import { useState } from 'react'
 
 
 
-const Profile=(props)=>{
-    const [isVisible,setisVisible]=useState(false)
+const Profile = (props) => {
+    const [isVisible, setisVisible] = useState(false)
 
-    const visibleHandler=()=>{
+    const visibleHandler = () => {
         setisVisible(true)
     }
 
@@ -15,7 +15,7 @@ const Profile=(props)=>{
         <div className={styles.text} >
             {props.userName}
         </div>
-        { !isVisible && <Dots onClick={visibleHandler}></Dots> } 
+        {!isVisible && <Dots onDisconnect={props.onDisconnect} onClick={visibleHandler}></Dots>}
         {/* { !isVisible && <ContextMenu></ContextMenu>} */}
     </div>
 }

@@ -1,21 +1,33 @@
-import React from "react";
+import { useState } from "react";
+import ContextMenu from "./ContextMenu";
 import styles from './Dots.module.css'
 
-export function ContextMenu(){
-    return <div className={styles.menu}>
-        <ul>
-            <li>Log Out</li>
-        </ul>
-    </div>
+
+export function Dots({ onDisconnect }) {
+    const [isVisible, setIsVisible] = useState(false);
+
+    const visiblityHandler = () => {
+        setIsVisible(true);
+    }
+    const inVisiblityHandler = (data) => {
+        setIsVisible(data);
+    }
+    return (
+        <>
+            {
+                !isVisible &&
+                <div className={styles.dot_container} onClick={visiblityHandler}>
+                    <div className={styles.dot}></div>
+                    <div className={styles.dot}></div>
+                    <div className={styles.dot}></div>
+                </div>
+            }
+            {isVisible &&
+                <div className={styles.container}>
+                    <ContextMenu onDisconnect={onDisconnect} onInvisible={inVisiblityHandler}></ContextMenu>
+                </div>
+            }
+        </>
+    )
 }
-
-
-export function Dots(){
-    return( 
-       <div className={styles.dot_container}>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-            <div className={styles.dot}></div>
-        </div>
-    )}
 

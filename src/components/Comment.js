@@ -5,6 +5,7 @@ import { faClose, faPaperPlane, faSmile } from '@fortawesome/free-solid-svg-icon
 import { socket } from '../service/socket'
 import Picker from 'emoji-picker-react'
 import { postMessage } from '../service/MessageServices'
+import moment from 'moment'
 export function Comment(props) {
     const [message, setMessage] = useState('')
     const [messageReceived, setMessageReceived] = useState({})
@@ -24,11 +25,13 @@ export function Comment(props) {
 
     useEffect(() => {
         socket.on('recived-message', (data) => {
+            let time = moment().format("h:mm a");
             setMessageReceived(
                 {
                     message: data.message,
                     sName: data.sender,
-                    rName: data.receiver
+                    rName: data.receiver,
+                    time: time
                 })
         })
         props.onReceviedMessage(messageReceived)
@@ -38,12 +41,14 @@ export function Comment(props) {
 
     const commentHandler = async (event) => {
         socket.emit('send-message', { message: message, sender: props.userName, receiver: props.receiverName })
+        let time = moment().format("h:mm a");
         props.onReceviedMessage({
             message: message,
             sName: props.userName,
-            rName: props.receiverName
+            rName: props.receiverName,
+            time: time
         })
-        postMessage({ message: message, sender: props.userName, receiver: props.receiverName });
+        postMessage({ message: message, sender: props.userName, receiver: props.receiverName, time: time });
         setMessage("");
         commentRef.current.focus();
     }
@@ -55,11 +60,14 @@ export function Comment(props) {
                     <input type='text' onChange={commentChangeHandler} className={styles.input} onKeyPress={e => {
                         if (e.key === 'Enter') {
                             socket.emit('send-message', { message: message, sender: props.userName, receiver: props.receiverName })
+                            let time = moment().format("h:mm a");
                             props.onReceviedMessage({
                                 message: message,
                                 sName: props.userName,
-                                rName: props.receiverName
+                                rName: props.receiverName,
+                                time: time
                             })
+                            postMessage({ message: message, sender: props.userName, receiver: props.receiverName, time: time });
                             setMessage("");
                             commentRef.current.focus();
                         }
